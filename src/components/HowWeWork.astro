@@ -1,0 +1,176 @@
+---
+  declare global {
+    interface Window {
+      ourStory: () => {
+        activeStep: number;
+        steps: {
+          title: string;
+          year: string;
+          description: string;
+          image: string;
+        }[];
+      };
+    }
+  }
+---
+
+<script>
+  // Make a global function so x-data="ourStory()" can call it when Alpine initializes.
+  // This avoids referencing `Alpine` in this script (no race).
+
+
+  window.ourStory = function () {
+    return {
+      activeStep: 0,
+      steps: [
+        {
+          title: "Cultivating Innovation",
+          year: "at Our Farms",
+          description:
+            "At the heart of Abhyuday Bharat lies our very own farms, where tradition meets technology. Here, lush fields are nurtured with precision using drone sprayers for water and eco-friendly pesticides, ensuring every crop receives the right care. By blending sustainable farming practices with modern agri-tech, we produce healthier, fresher, and safer raw food ingredients.",
+          image: "/your-hero-image.jpg",
+        },
+        {
+          title: "From Harvest",
+          year: "to Processing",
+          description:
+            "Once harvested, our fresh products make its way to state-of-the-art food processing plants. Here, vegetables and other raw products are carefully cleaned, sorted, and prepared with strict quality standards. This step ensures that what leaves the farm is not just fresh, but also packed with nutrition and ready for transformation into wholesome food.",
+          image: "/wmremove-transformed.png",
+        },
+        {
+          title: "Preserving Freshness",
+          year: "in Cold Storage",
+          description:
+            "To keep the natural taste and nutrients intact, the processed food is stored in temperature-controlled cold storage units. This prevents spoilage, reduces food waste, and ensures that every bite you take retains the same farm-fresh goodness as the day it was harvested.",
+          image: "/image3.jpg",
+        },
+        {
+          title: "Precision Packaging",
+          year: "at the Warehouse",
+          description:
+            "From cold storage, the products move to our modern warehouses, where packaging takes place. Every pack is sealed with care, maintaining hygiene, freshness, and convenience. This step ensures that our food is travel-ready while staying true to our promise of quality.",
+          image: "/image3.jpg",
+        },
+        {
+          title: "From Our Family Store",
+          year: "to your Dining Table",
+          description:
+            "Finally, the journey ends at the Abhyuday Bharat Family Store — a trusted bridge between farms and families. Here, the food reaches you in its purest, most delicious form. Whether it’s fresh vegetables, processed goods, or ready-to-eat items, every product tells a story of care, innovation, and connection from our farms to your family table.",
+          image:
+            "https://www.chefbombay.com/uploads/files/Chef%20Bombay1797%20%281%29.jpg",
+        },
+      ],
+    };
+  };
+</script>
+
+<!-- Load Alpine AFTER the global function is defined -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js" defer
+></script>
+
+<section
+  id="ourstory"
+  class="max-w-7xl mx-auto px-6 py-20"
+  x-data="ourStory()"
+  x-init="
+    setInterval(() => {
+      activeStep = (activeStep + 1) % steps.length
+    }, 8000)  // change every 4s
+  "
+>
+  <!-- Title -->
+  <div class="text-center mb-12">
+    <h2
+      class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+      style="font-family: 'Poppins'"
+    >
+      How We Work
+    </h2>
+    <div class="w-24 h-1 mx-auto mt-4 bg-yellow-500 rounded"></div>
+    <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-600">
+      Bridging the gap between technology and agriculture to redefine your food
+      experience.
+    </p>
+  </div>
+
+  <!-- Timeline -->
+  <div class="relative flex items-center justify-between mb-16">
+    <!-- Background line -->
+    <div
+      class="w-full h-[2px] bg-gray-300 absolute top-1/2 left-0 -translate-y-1/2"
+    >
+    </div>
+
+    <!-- Progress line -->
+    <div
+      class="h-[2px] bg-green-800 absolute top-1/2 left-0 -translate-y-1/2 transition-all duration-500"
+      :style="`width: ${(activeStep / (steps.length - 1)) * 100}%`"
+    >
+    </div>
+
+    <!-- Timeline Steps -->
+    <!-- @ts-ignore -->
+    <template x-for="(step, index) in steps" :key="index">
+      <div
+        @click="activeStep = index"
+        class="w-6 h-6 rounded-full cursor-pointer relative z-10 transition-all duration-300"
+        :class="{
+          'bg-green-800 ring-4 ring-green-800/25': activeStep === index,
+          'border-4 border-green-800 bg-white': index < activeStep,
+          'border-4 border-gray-300 bg-white': index > activeStep
+        }"
+        :title="step.title"
+      >
+      </div>
+    </template>
+  </div>
+
+  <!-- Timeline Content -->
+  <div class="relative min-h-[400px] overflow-hidden">
+    <!-- @ts-ignore -->
+    <template x-for="(step, index) in steps" :key="'step-' + index">
+      <div
+        x-show="activeStep === index"
+        x-transition:enter="transition ease-out duration-700"
+        x-transition:enter-start="opacity-0 translate-x-12"
+        x-transition:enter-end="opacity-100 translate-x-0"
+        x-transition:leave="transition ease-in duration-500"
+        x-transition:leave-start="opacity-100 translate-x-0"
+        x-transition:leave-end="opacity-0 -translate-x-12"
+        class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center relative md:absolute md:inset-0 overflow-visible md:overflow-hidden"
+      >
+        <!-- Text -->
+        <div
+          class="max-w-md mx-auto md:mx-0 px-2 sm:px-4 text-center md:text-left"
+        >
+          <p
+            class="text-sm sm:text-base font-semibold uppercase tracking-wider text-gray-700"
+            x-text="step.title"
+          >
+          </p>
+          <h3
+            class="text-xl sm:text-2xl md:text-3xl font-bold text-yellow-500 mb-3 sm:mb-4"
+            style="font-family: 'Poppins'"
+            x-text="step.year"
+          >
+          </h3>
+          <p
+            class="mt-2 sm:mt-4 text-gray-600 leading-relaxed sm:leading-loose text-sm sm:text-base"
+            style="font-family: 'Poppins'"
+            x-text="step.description"
+          >
+          </p>
+        </div>
+
+        <!-- Image -->
+        <div class="max-w-sm mx-auto md:max-w-full">
+          <img
+            :src="step.image"
+            :alt="step.title"
+            class="rounded-lg shadow-lg w-full object-cover max-h-60 sm:max-h-72 md:max-h-80"
+          />
+        </div>
+      </div>
+    </template>
+  </div>
+</section>

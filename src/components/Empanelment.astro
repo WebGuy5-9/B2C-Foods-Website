@@ -1,0 +1,79 @@
+---
+// Define the structure for each empanelment item for clarity.
+interface Logo {
+  name: string;
+  logoUrl: string;
+}
+
+const logos: Logo[] = [
+  { name: "Ministry of Food Processing Industry", logoUrl: "/mofpi-logo.jpg" },
+  { name: "Bank of Baroda", logoUrl: "/BankOfBarodaLogo.svg.png" },
+  { name: "Gujarat Agro Industries Corporation", logoUrl: "/images.png" },
+  { name: "GUJCOMASOL", logoUrl: "/Gujcomasol.png" },
+  { name: "INDEXT-b", logoUrl: "/indexta.png" },
+];
+
+// Array of your key partnerships, directly from your provided image.
+const partnerships: Partnership[] = [
+  {
+    title: "Ministry of Food Processing Industry (MoFPI)",
+    description: "Empaneled as Project Management Consultants of Mega Food Parks.",
+  },
+  {
+    title: "Panel Consultant for TEV Study",
+    description: "Empaneled for Techno-Economic Viability (TEV) study of projects for:",
+    subItems: ["Bank of Baroda", "Andhra Bank", "Mehsana Urban Co-operative Bank"],
+  },
+  {
+    title: "Gujarat Government & GAIC Appointments",
+    description: "Appointed for key state-level implementation roles:",
+    subItems: [
+      "SPMU (State Project Management Unit) by GAIC for the PMFME scheme.",
+      "CBBO (Cluster-Based Business Organization) by GAIC for promoting FPOs.",
+      "MoU with Govt. of Gujarat & INDEXT-a to run a dedicated industry helpdesk."
+    ]
+  },
+  {
+    title: "Turnkey Advisor to GUJCOMASOL",
+    description: "Appointed for their upcoming Agri & Food Processing Projects with an estimated project cost of more than ₹300 Crore.",
+  },
+];
+---
+
+<div id="empanelment" class="py-12 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" >
+    <div class="text-center mb-10">
+      <h3 class="font-semibold text-gray-600 tracking-wider uppercase">
+        In partnership with key government & financial institutions
+      </h3>
+    </div>
+    <div class="grid grid-cols-2 gap-8 md:grid-cols-5 items-center">
+        <div class="col-span-1 flex justify-center">
+          <img
+            class="h-30 max-h-30 w-auto object-contain  opacity-70 transition-all duration-300 hover:-0 hover:opacity-100"
+            src={"/mofpi-logo.jpg"}
+          />
+        </div>
+        <div class="col-span-1 flex justify-center"><img
+            class="h-16 max-h-16 w-auto object-contain  opacity-70 transition-all duration-300 hover:-0 hover:opacity-100"
+            src={"/BankOfBarodaLogo.svg.png"}
+          /></div>
+        <div class="col-span-1 flex justify-center">
+        <img
+            class="h-28 max-h-28 w-auto object-contain  opacity-70 transition-all duration-300 hover:-0 hover:opacity-100"
+            src={"/images.png"}       />
+        </div>
+        <div class="col-span-1 flex justify-center">
+        <img
+            class="h-28 max-h-28 w-auto object-contain  opacity-70 transition-all duration-300 hover:-0 hover:opacity-100"
+            src={"/Gujcomasol.png"}
+          />
+        </div>
+        <div class="col-span-1 flex justify-center">
+        <img
+            class="h-28 max-h-28 w-auto object-contain  opacity-70 transition-all duration-300 hover:-0 hover:opacity-100"
+            src={"/indexta.png"}         />
+        </div>
+    </div>
+  </div>
+</div>

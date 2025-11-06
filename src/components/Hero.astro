@@ -1,0 +1,41 @@
+---
+// Hero.astro
+---
+
+<section class="relative h-[90vh] w-full flex items-center justify-start">
+  <!-- Background Image -->
+  <div class="absolute inset-0">
+    <img
+      src="https://images.unsplash.com/photo-1560493676-04071c5f467b?q=80&w=1974&auto=format&fit=crop"   
+      alt="Farm background"
+      class="w-full h-full object-cover"
+    />
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black/30"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 max-w-4xl px-6 sm:px-12 lg:px-20">
+    <p class="text-yellow-300 text-sm sm:text-base font-semibold mb-4" style="font-family:'Poppins'">
+      Abhyuday Agro
+    </p>
+    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+      From&nbsp;
+      <span class="inline-block h-10 sm:h-12 md:h-16 lg:h-20 text-green-800 overflow-hidden relative align-bottom">
+        Abhyuday's Organic
+      </span>
+       farms to your tables, cultivating quality!
+    </h1>
+    
+    <!-- CTA button (optional, you can remove if not in design) -->
+    <div class="mt-8">
+      <a
+        href="#ourproducts"
+        class="inline-block bg-green-800 text-white font-semibold px-6 py-3 rounded-md shadow-lg hover:bg-green-900 transition"
+        style="font-family:'Poppins'"
+      >
+        Explore More
+      </a>
+    </div>
+  </div>
+</section>

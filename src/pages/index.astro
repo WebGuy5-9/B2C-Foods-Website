@@ -1,0 +1,37 @@
+---
+// src/pages/index.astro
+
+// Import the layout and all the components we created
+import Layout from '../layout/Layout.astro';
+import Hero from '../components/Hero.astro';
+import HeroSection from '../components/HeroSection.astro';
+import Casestudies from '../components/Casestudies.astro';
+import AboutUs from '../components/AboutUs.astro';
+import Empanelment from '../components/Empanelment.astro';
+import CoreServices from '../components/CoreServices.astro';
+import ProjectMaps from '../components/ProjectsMap.astro'
+import Newsletter from '../components/Newsletter.astro';
+import HowWeWork from '../components/HowWeWork.astro';
+import OurProducts from '../components/OurProducts.astro';
+import Achievements from '../components/Achievements.astro';
+import Reviews from '../components/Reviews.astro';
+---
+
+<Layout title="Abhyuday Foods">
+
+  <!-- A wrapper div can be useful for flex-column layouts -->
+  <div class="flex flex-col min-h-screen">
+    <main>
+      <HeroSection />
+      <AboutUs />
+      <CoreServices />
+      <Achievements />
+      <HowWeWork />
+      <OurProducts />
+      <!-- <Reviews /> -->
+      <ProjectMaps />
+      <Newsletter />
+      <Empanelment />
+    </main>
+  </div>
+</MainLayout>

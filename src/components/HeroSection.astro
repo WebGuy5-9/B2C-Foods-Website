@@ -1,0 +1,448 @@
+<!-- ---
+// src/components/HeroSection.astro
+
+export interface Props {
+  images?: string[];
+}
+
+const defaultImages = [
+  "https://images.unsplash.com/photo-1560493676-04071c5f467b?q=80&w=1974&auto=format&fit=crop", // A landscape-oriented image
+  "/wmremove-transformed.png", // A portrait-oriented image
+  "https://lh3.googleusercontent.com/p/AF1QipPkohA0GYAw5RZB121_zYqy9zBwf-uDHjad2S7f=s680-w680-h510-rw",
+  //"https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=2070&auto=format&fit=crop", // Another landscape image
+];
+
+const { images = defaultImages } = Astro.props;
+---
+
+<section
+  class="relative flex overflow-hidden min-h-[60vh] sm:min-h-[70vh] md:h-[91vh]"
+>
+  <div class="relative w-full h-[60vh] sm:h-[80vh]">
+    <img
+      src="https://images.unsplash.com/photo-1560493676-04071c5f467b?q=80&w=1974&auto=format&fit=crop"
+      alt="Hero Image"
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-black/45"></div>
+    <div
+      class="absolute inset-0 flex items-center justify-center px-4 sm:px-6 z-10"
+    >
+      <div
+        class="max-w-xl sm:max-w-2xl md:max-w-5xl lg:max-w-7xl text-center md:text-left font-[Poppins]"
+      >
+        <h1
+          class="text-xl sm:text-2xl md:text-5xl lg:text-6xl font-bold text-white leading-snug sm:leading-tight"
+        >
+          From&nbsp;
+          <span
+            class="inline-flex items-center h-6 sm:h-10 md:h-16 lg:h-20 text-green-800 font-bold"
+          >
+            Abhyuday's Organic
+          </span>
+
+          farms to your tables,<br class="sm:hidden" />
+          cultivat<span class="typing">ing quality!</span>
+        </h1>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  // A good practice: wrap the logic in a function to avoid polluting the global scope
+  function setupImageSlider() {
+    // Select all the images with the .bg-slide class
+    const slides = document.querySelectorAll(".bg-slide");
+
+    // If there's only one slide (or none), no need to run the interval
+    if (slides.length <= 1) {
+      return;
+    }
+
+    let currentIndex = 0;
+
+    function showNextSlide() {
+      // Hide the current slide with a fade-out effect
+      slides[currentIndex].classList.remove("opacity-100");
+      slides[currentIndex].classList.add("opacity-0");
+
+      // Calculate the index of the next slide, looping back to 0
+      currentIndex = (currentIndex + 1) % slides.length;
+
+      // Show the next slide with a fade-in effect
+      slides[currentIndex].classList.remove("opacity-0");
+      slides[currentIndex].classList.add("opacity-100");
+    }
+
+    // Change slide every 5 seconds (5000 milliseconds)
+    const slideInterval = setInterval(showNextSlide, 5000);
+  }
+
+  // Run the slider setup
+  setupImageSlider();
+</script>
+
+<style is:global>
+  /* Keyframes for smooth horizontal sliding */
+  @keyframes slide-vertical {
+    0% {
+      transform: translateY(0%);
+    }
+    20% {
+      transform: translateY(-100%);
+    }
+    40% {
+      transform: translateY(-200%);
+    }
+    60% {
+      transform: translateY(-300%);
+    }
+    80% {
+      transform: translateY(-400%);
+    }
+    100% {
+      transform: translateY(-500%);
+    }
+  }
+
+  .animate-slide-vertical {
+    display: inline-block;
+    animation: slide-vertical 10s ease-in-out infinite;
+    line-height: 1.2;
+  }
+  .vertical-slider {
+    display: flex;
+    flex-direction: column;
+    animation: slideWords 20s ease-in-out infinite;
+  }
+
+  .vertical-slider li {
+    /* Set a base height, but it will be overridden by responsive styles */
+    height: 3rem; /* 48px, matches h-12 */
+    display: flex;
+    align-items: center;
+    justify-content: start;
+  }
+
+  /* Use media queries to match Tailwind's breakpoints */
+  @media (min-width: 768px) {
+    /* md */
+    .vertical-slider li {
+      height: 4rem; /* 64px, matches md:h-16 */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    /* lg */
+    .vertical-slider li {
+      height: 5rem; /* 80px, matches lg:h-20 */
+    }
+  }
+
+  /* The animation keyframes must also use these responsive heights */
+  @keyframes slideWords {
+    0%,
+    20% {
+      transform: translateY(0);
+    }
+
+    25%,
+    45% {
+      transform: translateY(-3rem);
+    } /* Base height */
+    50%,
+    70% {
+      transform: translateY(-6rem);
+    }
+    75%,
+    95% {
+      transform: translateY(-9rem);
+    }
+    100% {
+      transform: translateY(-12rem);
+    }
+  }
+
+  @media (min-width: 768px) {
+    /* md */
+    @keyframes slideWords {
+      0%,
+      20% {
+        transform: translateY(0);
+      }
+
+      25%,
+      45% {
+        transform: translateY(-4rem);
+      } /* md height */
+      50%,
+      70% {
+        transform: translateY(-8rem);
+      }
+      75%,
+      95% {
+        transform: translateY(-12rem);
+      }
+      100% {
+        transform: translateY(-16rem);
+      }
+    }
+  }
+
+  @media (min-width: 1024px) {
+    /* lg */
+    @keyframes slideWords {
+      0%,
+      20% {
+        transform: translateY(0);
+      }
+
+      25%,
+      45% {
+        transform: translateY(-5rem);
+      } /* lg height */
+      50%,
+      70% {
+        transform: translateY(-10rem);
+      }
+      75%,
+      95% {
+        transform: translateY(-15rem);
+      }
+      100% {
+        transform: translateY(-20rem);
+      }
+    }
+  }
+
+  /* Typing effect */
+  .typing {
+    display: inline-block;
+    vertical-align: baseline; /* fixes the slight shift */
+    position: relative;
+    top: 17px; /* or -1px depending on browser render */
+    border-right: 2px solid #fff; /* cursor */
+    white-space: nowrap;
+    overflow: hidden;
+    animation:
+      typing 2s steps(10, end),
+      blink 0.75s step-end infinite;
+  }
+
+  @media (max-width: 425px) {
+    .typing {
+      top: 7px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .typing {
+      top: 10px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .typing {
+      top: 17px;
+    }
+  }
+
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 10ch; /* length of "ing quality!" */
+    }
+  }
+
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+  }
+</style> -->
+
+---
+// src/components/HeroSection.astro
+
+export interface Props {
+  images?: string[];
+}
+
+const defaultImages = [
+  "https://images.unsplash.com/photo-1560493676-04071c5f467b?q=80&w=1974&auto=format&fit=crop", // A landscape-oriented image
+  "/wmremove-transformed.png", // A portrait-oriented image
+  "https://cdn.britannica.com/36/123536-050-95CB0C6E/Variety-fruits-vegetables.jpg",
+  "https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=2070&auto=format&fit=crop", // Another landscape image
+];
+
+const { images = defaultImages } = Astro.props;
+---
+
+<section class="relative flex overflow-hidden h-[80vh] md:h-[94vh]">
+  <div class="absolute inset-0 z-[-1]">
+    {
+      images.map((src: string, index: number) => (
+        <img
+          src={src}
+          alt={`Background slide ${index + 1}`}
+          class:list={[
+            "bg-slide absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out",
+            index === 0 ? "opacity-100" : "opacity-0",
+          ]}
+        />
+      ))
+    }
+
+    
+    <div class="absolute inset-0 bg-black/45"></div>
+  </div>
+
+  <div class="relative flex justify-center items-center z-10 w-full h-full mx-auto px-2 sm:px-6">
+    <div class="max-w-full sm:max-w-xl md:max-w-2xl text-center" style="font-family: 'Poppins', sans-serif;">
+      
+      
+
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+        From Farm to Family&nbsp;
+        <span class="inline-block h-10 sm:h-12 md:h-16 lg:h-20 text-green-400 overflow-hidden relative align-bottom">
+          <ul class="vertical-slider text-primary">
+            <li>Organic Farming</li>
+            <li>Food Processing</li>
+            <li>Family Store</li>
+            <li>Organic Foods</li>
+            <li aria-hidden="true">Organic Farming</li>
+          </ul>
+        </span>
+      </h1>
+
+      
+      <p class="mt-4 sm:mt-6 text-gray-200 text-sm sm:text-base md:text-lg lg:text-xl">
+        Empowering Farmers, Nourishing Families, Sustaining Tomorrow
+      </p>
+
+      
+      <!-- CTA Button -->
+      <button
+        class="mt-5 sm:mt-8 bg-green-600 hover:bg-green-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium text-sm sm:text-base transition-transform transform active:scale-95"
+      >
+        <a href="/projects">Discover Our Solutions</a>
+      </button>
+
+    </div>
+  </div>
+</section>
+
+
+
+<script>
+  // A good practice: wrap the logic in a function to avoid polluting the global scope
+  function setupImageSlider() {
+    // Select all the images with the .bg-slide class
+    const slides = document.querySelectorAll(".bg-slide");
+
+    // If there's only one slide (or none), no need to run the interval
+    if (slides.length <= 1) {
+      return;
+    }
+
+    let currentIndex = 0;
+
+    function showNextSlide() {
+      // Hide the current slide with a fade-out effect
+      slides[currentIndex].classList.remove("opacity-100");
+      slides[currentIndex].classList.add("opacity-0");
+
+      // Calculate the index of the next slide, looping back to 0
+      currentIndex = (currentIndex + 1) % slides.length;
+
+      // Show the next slide with a fade-in effect
+      slides[currentIndex].classList.remove("opacity-0");
+      slides[currentIndex].classList.add("opacity-100");
+    }
+
+    // Change slide every 5 seconds (5000 milliseconds)
+    const slideInterval = setInterval(showNextSlide, 5000);
+  }
+
+  // Run the slider setup
+  setupImageSlider();
+</script>
+
+<style is:global>
+  /* Keyframes for smooth horizontal sliding */
+  @keyframes slide-vertical {
+  0%   { transform: translateY(0%); }
+  20%  { transform: translateY(-100%); }
+  40%  { transform: translateY(-200%); }
+  60%  { transform: translateY(-300%); }
+  80%  { transform: translateY(-400%); }
+  100% { transform: translateY(-500%); }
+}
+
+.animate-slide-vertical {
+  display: inline-block;
+  animation: slide-vertical 10s ease-in-out infinite;
+  line-height: 1.2;
+}
+.vertical-slider {
+  display: flex;
+  flex-direction: column;
+  animation: slideWords 20s ease-in-out infinite;
+}
+
+  .vertical-slider li {
+    /* Set a base height, but it will be overridden by responsive styles */
+    height: 3rem; /* 48px, matches h-12 */
+    display: flex;
+    align-items: center;
+    justify-content: start;
+  }
+  
+  /* Use media queries to match Tailwind's breakpoints */
+  @media (min-width: 768px) { /* md */
+    .vertical-slider li {
+      height: 4rem; /* 64px, matches md:h-16 */
+    }
+  }
+  
+  @media (min-width: 1024px) { /* lg */
+    .vertical-slider li {
+      height: 5rem; /* 80px, matches lg:h-20 */
+    }
+  }
+
+  /* The animation keyframes must also use these responsive heights */
+  @keyframes slideWords {
+    0%, 20% { transform: translateY(0); }
+
+    25%, 45% { transform: translateY(-3rem); }   /* Base height */
+    50%, 70% { transform: translateY(-6rem); }
+    75%, 95% { transform: translateY(-9rem); }
+    100%     { transform: translateY(-12rem); }
+  }
+
+  @media (min-width: 768px) { /* md */
+    @keyframes slideWords {
+      0%, 20% { transform: translateY(0); }
+
+      25%, 45% { transform: translateY(-4rem); } /* md height */
+      50%, 70% { transform: translateY(-8rem); }
+      75%, 95% { transform: translateY(-12rem); }
+      100%     { transform: translateY(-16rem); }
+    }
+  }
+
+  @media (min-width: 1024px) { /* lg */
+    @keyframes slideWords {
+      0%, 20% { transform: translateY(0); }
+
+      25%, 45% { transform: translateY(-5rem); } /* lg height */
+      50%, 70% { transform: translateY(-10rem); }
+      75%, 95% { transform: translateY(-15rem); }
+      100%     { transform: translateY(-20rem); }
+    }
+  }
+
+</style>
