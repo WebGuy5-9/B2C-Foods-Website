@@ -9,3 +9,5 @@ Warehousing & Cold Storage: Modern storage infrastructure to maintain freshness 
 Packhouse & Distribution: Efficient packaging and logistics systems that prepare the products for market delivery.
 
 B2C Food Store: A direct-to-consumer model, allowing customers to purchase fresh, processed organic foods directly from the brand’s online and offline stores.
+
+Visit this link https://b2c-foods-website.vercel.app/ to see the website
