@@ -1,0 +1,70 @@
+---
+const stats = [
+  { label: "Upgrade technology and equipment for micro industries" },
+  { label: "Provide training, skill development, and institutional support" },
+  { label: "Help with branding, marketing, and product quality improvement" },
+  {
+    label:
+      "Support Farmer Producer Organizations (FPOs), Self-Help Groups (SHGs), and Cooperatives",
+  },
+];
+---
+
+<section class="bg-[#f9f8f4] py-20">
+  <div
+    class="max-w-7xl mx-auto px-4 flex flex-col-reverse md:flex-row items-center justify-between"
+  >
+    <!-- Left: Text -->
+    <div class="md:w-1/2 mt-10 md:mt-0" style="font-family: 'Poppins'">
+      <!-- Text Block -->
+      <div
+        class="flex flex-col items-center text-center sm:items-start sm:text-left"
+      >
+        <h2
+          class="text-xl sm:text-3xl md:text-4xl font-bold tracking-tight text-gray-900"
+        >
+          About the PMFME scheme
+        </h2>
+        <div class="w-16 sm:w-24 h-1 mt-3 sm:mt-4 bg-yellow-500 rounded"></div>
+        <p
+          class="mt-4 text-gray-600 tracking-wider text-sm sm:text-base md:text-lg max-w-md"
+        >
+          The scheme aims to strengthen the unorganized micro food processing
+          sector, which includes around 25 lakh small industries across India.
+          These small units are mostly family-run and based in rural areas.
+        </p>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-8">
+        {
+          stats.map((stat) => (
+            <div
+              class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-6 text-center"
+            >
+              <p class="mt-2 text-xs sm:text-sm text-gray-600">
+                {stat.label}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Right: Image -->
+    <div class="md:w-1/2 relative flex justify-center md:justify-end">
+      <img
+        src="/AboutPM.png"
+        alt="Team collaboration"
+        class="rounded-2xl shadow-lg w-[90%] md:w-[85%] object-cover"
+      />
+
+      <!-- Bottom-left Logo -->
+      <img
+        src="/PMFME_LOGO_LATEST_0.png"
+        alt="PMFME Logo"
+        class="absolute -bottom-12 left-6 md:left-10 w-24 md:w-32 h-auto rounded-full shadow-lg bg-white p-2"
+      />
+    </div>
+  </div>
+</section>
