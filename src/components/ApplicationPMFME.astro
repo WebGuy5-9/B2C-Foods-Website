@@ -22,10 +22,22 @@ const steps = [
       "Eligible applicants receive their subsidy or financial assistance directly through the bank.",
   },
 ];
+
+const eligibilityChecklist = [
+  "Your micro food processing unit must currently be operational.",
+  "The unit must be unorganized and must have at least 10 workers.",
+  "New units must produce items fixed under 'One District – One Product (ODOP)'.",
+  "Applicant must have ownership rights (Proprietorship or Partnership).",
+  "Applicant must be 18+ years old with minimum education up to Standard 8.",
+  "Only one person per family (self, spouse, children) is eligible.",
+  "Applicant must contribute 10% of the total project cost.",
+  "Remaining project cost will be eligible for bank loan.",
+  "Cost of land is excluded, but a workshed/building on lease for up to 3 years is allowed.",
+];
 ---
 
 <section class="bg-white py-20 px-6">
-  <div class="max-w-7xl mx-auto text-center" style="font-family: 'Poppins'" >
+  <div class="max-w-7xl mx-auto text-center" style="font-family: 'Poppins'">
     <!-- Heading -->
     <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
       Our Simple Application Process
@@ -37,26 +49,167 @@ const steps = [
     </p>
 
     <!-- Process Steps -->
-    <div class="relative flex flex-col md:flex-row justify-between items-center">
+    <div
+      class="relative flex flex-col md:flex-row justify-between items-center"
+    >
       <!-- Connector line -->
       <div
         class="hidden md:block absolute top-12 left-0 right-0 h-[2px] bg-gradient-to-r from-yellow-100 via-yellow-300 to-yellow-100 z-0"
-      ></div>
+      >
+      </div>
 
-      {steps.map((step, index) => (
-        <div
-          class="relative z-10 flex flex-col items-center text-center px-4 md:px-6 mb-12 md:mb-0 md:w-1/3"
-        >
-          <div
-            class="w-20 h-20 flex items-center justify-center rounded-full bg-yellow-50 mb-6 border border-yellow-100"
-          >
-            <img src={step.icon} alt={step.title} class="w-10 h-10" />
+      {
+        steps.map((step, index) => (
+          <div class="relative z-10 flex flex-col items-center text-center px-4 md:px-6 mb-12 md:mb-0 md:w-1/3">
+            <div class="w-20 h-20 flex items-center justify-center rounded-full bg-yellow-50 mb-6 border border-yellow-100">
+              <img src={step.icon} alt={step.title} class="w-10 h-10" />
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900">{step.title}</h3>
+            <p class="text-yellow-600 font-medium">{step.highlight}</p>
+            <p class="text-gray-600 text-sm mt-2 max-w-xs">
+              {step.description}
+            </p>
           </div>
-          <h3 class="text-lg font-semibold text-gray-900">{step.title}</h3>
-          <p class="text-yellow-600 font-medium">{step.highlight}</p>
-          <p class="text-gray-600 text-sm mt-2 max-w-xs">{step.description}</p>
-        </div>
-      ))}
+        ))
+      }
+    </div>
+    <!-- Apply Now Button (centered below) -->
+    <div class="mt-16">
+      <button
+        id="apply-now-btn"
+        class="px-8 py-3 bg-yellow-500 text-white font-semibold rounded-lg shadow hover:bg-yellow-600 cursor-pointer transition"
+        aria-haspopup="dialog"
+        aria-controls="eligibility-modal"
+      >
+        Apply Now!
+      </button>
+    </div>
+  </div>
+  <!-- Modal markup (hidden by default) -->
+  <div
+    id="eligibility-modal"
+    class="fixed inset-0 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="eligibility-title"
+  >
+    <!-- Overlay -->
+    <div
+      id="eligibility-overlay"
+      class="absolute inset-0 bg-black/40 backdrop-blur-sm"
+    >
+    </div>
+
+    <!-- Modal content -->
+    <div
+      class="relative bg-white w-[92%] max-w-2xl rounded-2xl shadow-xl p-8 mx-4 z-10"
+      role="document"
+      style="font-family: 'Poppins'"
+    >
+      <button
+        id="modal-close-x"
+        class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-xl cursor-pointer"
+        aria-label="Close">✕</button
+      >
+
+      <h2
+        id="eligibility-title"
+        class="text-2xl font-bold text-gray-900 text-center"
+      >
+        Check your eligibility criteria
+      </h2>
+      <!-- Light Grey Thin Divider -->
+      <div class="w-full h-px bg-gray-300 mx-auto mt-3 mb-6"></div>
+
+      <!-- Checklist -->
+      <ul
+        id="eligibility-list"
+        class="space-y-4 text-gray-700 text-sm leading-relaxed"
+      >
+        {
+          eligibilityChecklist.map((item) => (
+            <li class="flex items-start gap-3">
+              <span class="text-green-600 text-lg">✔</span>
+              <span>{item}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <!-- Buttons row: Cancel (left) and Proceed (right) -->
+      <div class="flex justify-between mt-10">
+        <button
+          id="modal-cancel"
+          class="px-6 py-3 rounded-lg bg-gray-200 hover:bg-gray-300 cursor-pointer transition font-medium"
+        >
+          Cancel
+        </button>
+
+        <button
+          id="modal-proceed"
+          class="px-6 py-3 rounded-lg bg-green-600 text-white font-semibold hover:bg-green-700 cursor-pointer transition"
+        >
+          Proceed
+        </button>
+      </div>
     </div>
   </div>
 </section>
+
+<script type="module">
+  document.addEventListener("DOMContentLoaded", () => {
+    console.log("Modal script loaded");
+
+    const modal = document.getElementById("eligibility-modal");
+    const applyBtn = document.getElementById("apply-now-btn");
+    const overlay = document.getElementById("eligibility-overlay");
+    const closeX = document.getElementById("modal-close-x");
+    const cancelBtn = document.getElementById("modal-cancel");
+    const proceedBtn = document.getElementById("modal-proceed");
+
+    // Debug logs
+    console.log({
+      modal,
+      applyBtn,
+      overlay,
+      closeX,
+      cancelBtn,
+      proceedBtn,
+    });
+
+    if (!modal || !applyBtn) {
+      console.error("❌ Modal or Apply button not found in DOM.");
+      return;
+    }
+
+    const showModal = () => {
+      modal.classList.remove("pointer-events-none", "opacity-0");
+      document.body.style.overflow = "hidden";
+    };
+
+    const hideModal = () => {
+      modal.classList.add("pointer-events-none", "opacity-0");
+      document.body.style.overflow = "";
+    };
+
+    applyBtn.addEventListener("click", (e) => {
+      console.log("Apply clicked");
+      showModal();
+    });
+
+    overlay?.addEventListener("click", hideModal);
+    closeX?.addEventListener("click", hideModal);
+    cancelBtn?.addEventListener("click", hideModal);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") hideModal();
+    });
+
+    proceedBtn?.addEventListener("click", () => {
+      console.log("Proceed clicked");
+      hideModal();
+    });
+  });
+</script>
+
+
